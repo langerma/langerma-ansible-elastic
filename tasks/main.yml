@@ -51,15 +51,15 @@
     force: yes
   notify: "restart elasticsearch"
 
-  - name: Copy log4j Configuration File
-    template:
-      src: templates/log4j2.properties.j2
-      dest: "{{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/config/{{ elasticsearch_instance_name }}/log4j2.properties"
-      owner: "{{ elasticsearch_user }}"
-      group: "{{ elasticsearch_group }}"
-      mode: 0644
-      force: yes
-    notify: "restart elasticsearch"
+- name: Copy log4j Configuration File
+  template:
+    src: templates/log4j2.properties.j2
+    dest: "{{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/config/{{ elasticsearch_instance_name }}/log4j2.properties"
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    mode: 0644
+    force: yes
+  notify: "restart elasticsearch"
 
 - name: Copy jvm.options Configuration File
   template:
