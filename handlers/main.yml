@@ -1,0 +1,8 @@
+---
+- name: "update supervisord"
+  shell: "supervisorctl update"
+  become: yes
+
+- name: "restart elasticsearch"
+  shell: "supervisorctl restart elasticsearch"
+  become: yes

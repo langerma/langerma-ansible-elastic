@@ -1,0 +1,63 @@
+---
+- name: create dir {{ elasticsearch_install_dir }}
+  file:
+    path: "{{ elasticsearch_install_dir }}"
+    state: directory
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    mode: 0755
+
+- name: create dir {{ elasticsearch_install_dir }}/{{ elasticsearch_version }}
+  file:
+    path: "{{ elasticsearch_install_dir }}/{{ elasticsearch_version }}"
+    state: directory
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    mode: 0755
+
+- name: Extract {{ elasticsearch_install_tar }} into {{ elasticsearch_install_dir }}/{{ elasticsearch_version }}
+  unarchive:
+    src: "{{ elasticsearch_install_tar }}"
+    dest: "{{ elasticsearch_install_dir }}/{{ elasticsearch_version }}"
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    extra_opts: [--strip-components=1]
+
+- name: Create Data Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+  with_items:
+    - "{{elasticsearch_data_dirs}}"
+
+#Copy the config template
+- name: Copy Configuration File
+  template:
+    src: templates/elasticsearch.yml.j2
+    dest: "{{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/config/elasticsearch.yml"
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    mode: 0644
+    force: yes
+  notify: "restart elasticsearch"
+
+- name: Copy jvm.options Configuration File
+  template:
+    src: templates/jvm.options.j2
+    dest: "{{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/config/jvm.options"
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    mode: 0644
+    force: yes
+  notify: "restart elasticsearch"
+
+- name: copy elasticsearch supervisord ini
+  template:
+    src: templates/elasticsearch.ini.j2
+    dest: /app/supervisord.d/elasticsearch.ini
+    owner: "{{ elasticsearch_user }}"
+    group: "{{ elasticsearch_group }}"
+    mode: "u=rw,g=r,o=r"
+  notify: "update supervisord"

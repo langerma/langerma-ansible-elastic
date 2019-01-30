@@ -1,0 +1,31 @@
+---
+elasticsearch_version: 6.5.4
+elasticsearch_install_dir: /app/elasticsearch
+elasticsearch_install_tar: /Users/langerma/Downloads/elastic/elasticsearch-6.5.4.tar.gz
+
+elasticsearch_enable_xpack: true
+elasticsearch_user: elasticsearch
+elasticsearch_group: elasticsearch
+elasticsearch_config: {}
+#Need to provide default directorielasticsearch
+elasticsearch_data_dirs: "/app/data/elasticsearch"
+elasticsearch_log_dir: "{{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/logs"
+elasticsearch_action_auto_create_index: true
+elasticsearch_max_open_filelasticsearch: 65536
+elasticsearch_max_threads: "{{ 2048 if ( elasticsearch_version | version_compare('6.0.0', '<')) else 8192 }}"
+elasticsearch_max_map_count: 262144
+elasticsearch_allow_downgradelasticsearch: false
+elasticsearch_xpack_featurelasticsearch: ["alerting","monitoring","graph","ml","security"]
+#Thelasticsearche are used for internal operations performed by ansible.
+#They do not affect the current configuration
+elasticsearch_api_host: "localhost"
+elasticsearch_api_port: 9200
+
+# Since ansible 2.2 the following variablelasticsearch need to be defined
+# to allow the role to be conditionally played with a when condition.
+pid_dir: ''
+log_dir: ''
+conf_dir: ''
+data_dirs: ''
+# JVM custom parameters
+elasticsearch_jvm_custom_parameters: ''

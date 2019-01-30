@@ -1,0 +1,8 @@
+[program:elasticsearch]
+user=elasticsearch
+command={{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/bin/elasticsearch
+autostart=true
+autorestart=true
+environment=JAVA_HOME={{ java_install_dir }}/{{ java_version }},ES_HEAP_SIZE={{ elasticsearch_heap_size }}
+stdout_logfile={{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/logs/elasticsearch.out.log
+stderr_logfile={{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/logs/elasticsearch.err.log

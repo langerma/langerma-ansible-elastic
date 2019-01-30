@@ -1,0 +1,74 @@
+{% if elasticsearch_config %}
+{{ elasticsearch_config | to_nice_yaml }}
+{% endif %}
+
+{% if elasticsearch_config['cluster.name'] is not defined %}
+cluster.name: elasticsearch
+{% endif %}
+
+{% if elasticsearch_config['node.name'] is not defined %}
+node.name: {{inventory_hostname}}-{{elasticsearch_instance_name}}
+{% endif %}
+
+#################################### Paths ####################################
+
+# Path to directory containing configuration (this file and logging.yml):
+
+{% if (elasticsearch_version | version_compare('6.0.0', '<')) %}
+path.conf: {{ elasticsearch_conf_dir }}
+{% endif %}
+
+path.data: {{ elasticsearch_data_dirs | array_to_str }}
+
+path.logs: {{ elasticsearch_log_dir }}
+
+{% if elasticsearch_path_repo is defined %}
+path.repo: {{ elasticsearch_path_repo }}
+{% endif %}
+
+{% if elasticsearch_action_auto_create_index == true %}
+action.auto_create_index: true
+{% elif not elasticsearch_action_auto_create_index %}
+action.auto_create_index: false
+{% else %}
+action.auto_create_index: {{ elasticsearch_action_auto_create_index }}
+{% endif %}
+
+{% if elasticsearch_enable_xpack %}
+{% if not "security" in elasticsearch_xpack_featurelasticsearch %}
+xpack.security.enabled: false
+{% endif %}
+
+{% if not "monitoring" in elasticsearch_xpack_featurelasticsearch %}
+xpack.monitoring.enabled: false
+{% endif %}
+
+{% if not "alerting" in elasticsearch_xpack_featurelasticsearch %}
+xpack.watcher.enabled: false
+{% endif %}
+
+{% if not "ml" in elasticsearch_xpack_featurelasticsearch %}
+xpack.ml.enabled: false
+{% endif %}
+
+{% if not "graph" in elasticsearch_xpack_featurelasticsearch %}
+xpack.graph.enabled: false
+{% endif %}
+{% endif %}
+
+{% if elasticsearch_mail_config is defined %}
+xpack.notification.email:
+  account:
+    {{ elasticsearch_mail_config['account'] }}:
+      profile: {{ elasticsearch_mail_config['profile'] }}
+      email_defaults:
+        from: {{ elasticsearch_mail_config['from'] }}
+      smtp:
+        auth: {{ elasticsearch_mail_config['require_auth'] }}
+        host: {{ elasticsearch_mail_config['host'] }}
+        port: {{ elasticsearch_mail_config['port'] }}
+        {% if elasticsearch_mail_config['require_auth'] == true %}
+        user: {{ elasticsearch_mail_config['user'] }}
+        password: {{ elasticsearch_mail_config['pass'] }}
+        {% endif %}
+{% endif %}
