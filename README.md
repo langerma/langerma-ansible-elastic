@@ -17,7 +17,7 @@ an ansible role to install and configure elasticsearch on rhel/centos 7
     elasticsearch_data_dirs:
       - "/app/data/elasticsearch"
     elasticsearch_config:
-    #node.name: "node1"
+      #node.name: "node1"
       cluster.name: "custom-cluster"
       discovery.zen.ping.unicast.hosts: "master"
       network.host: [_site_,_local_]
