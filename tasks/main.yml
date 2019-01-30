@@ -56,7 +56,7 @@
 - name: copy elasticsearch supervisord ini
   template:
     src: templates/elasticsearch.ini.j2
-    dest: /app/supervisord.d/elasticsearch.ini
+    dest: ""/app/supervisord.d/elasticsearch-{{ elasticsearch_instance_name }}.ini"
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_group }}"
     mode: "u=rw,g=r,o=r"
