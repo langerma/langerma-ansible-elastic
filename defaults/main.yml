@@ -1,7 +1,7 @@
 ---
 elasticsearch_version: 6.5.4
 elasticsearch_install_dir: /app/elasticsearch
-elasticsearch_install_tar: /Users/langerma/Downloads/elastic/elasticsearch-6.5.4.tar.gz
+elasticsearch_install_tar: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.5.4.tar.gz
 
 elasticsearch_enable_xpack: true
 elasticsearch_user: elasticsearch
