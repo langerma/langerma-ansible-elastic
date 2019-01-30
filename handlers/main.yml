@@ -3,6 +3,6 @@
   shell: "supervisorctl update"
   become: yes
 
-- name: "restart elasticsearch {{ elasticsearch_instance_name }}"
+- name: "restart elasticsearch"
   shell: "supervisorctl restart elasticsearch-{{ elasticsearch_instance_name }}"
   become: yes
