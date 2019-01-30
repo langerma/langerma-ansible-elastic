@@ -77,10 +77,10 @@
     force: yes
   notify: "restart elasticsearch"
 
-- name: copy elasticsearch supervisord ini
+- name: copy elasticsearch supervisord ini to {{ supervisord_ini_dir }}
   template:
     src: templates/elasticsearch.ini.j2
-    dest: "/app/supervisord.d/elasticsearch-{{ elasticsearch_instance_name }}.ini"
+    dest: "{{ supervisord_ini_dir }}/elasticsearch-{{ elasticsearch_instance_name }}.ini"
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_group }}"
     mode: "u=rw,g=r,o=r"
