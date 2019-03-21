@@ -4,5 +4,5 @@
   become: yes
 
 - name: "restart elasticsearch"
-  shell: "supervisorctl restart elasticsearch-{{ elasticsearch_instance_name }}"
+  supervisorctl: name="elasticsearch-{{ elasticsearch_instance_name }}" state=restarted
   become: yes

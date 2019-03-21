@@ -84,4 +84,4 @@
     owner: "{{ elasticsearch_user }}"
     group: "{{ elasticsearch_group }}"
     mode: "u=rw,g=r,o=r"
-  notify: "update supervisord"
+  notify: "restart elasticsearch"
