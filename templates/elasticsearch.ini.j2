@@ -3,6 +3,6 @@ user=elasticsearch
 command={{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/bin/elasticsearch
 autostart=true
 autorestart=true
-environment=JAVA_HOME={{ java_install_dir }}/{{ java_version }},ES_HEAP_SIZE={{ elasticsearch_heap_size }},ES_PATH_CONF={{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/config/{{ elasticsearch_instance_name }}
-stdout_logfile={{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/logs/elasticsearch-{{ elasticsearch_instance_name }}.out.log
-stderr_logfile={{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/logs/elasticsearch-{{ elasticsearch_instance_name }}.err.log
+environment=JAVA_HOME={{ java_install_dir }}/{{ java_version }},ES_HEAP_SIZE={{ elasticsearch_heap_size }},ES_PATH_CONF={{ elasticsearch_config_dir }}/{{ elasticsearch_instance_name }}
+stdout_logfile={{ elasticsearch_log_dir }}/elasticsearch-{{ elasticsearch_instance_name }}.out.lo
+stderr_logfile={{ elasticsearch_log_dir }}/elasticsearch-{{ elasticsearch_instance_name }}.err.log

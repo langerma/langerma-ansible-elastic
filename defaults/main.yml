@@ -10,7 +10,8 @@ elasticsearch_group: elasticsearch
 elasticsearch_config: {}
 #Need to provide default directorielasticsearch
 elasticsearch_data_dirs: "/app/data/elasticsearch"
-elasticsearch_log_dir: "{{ elasticsearch_install_dir }}/{{ elasticsearch_version }}/logs/{{ elasticsearch_instance_name }}"
+elasticsearch_log_dir: "{{ elasticsearch_install_dir }}/logs/{{ elasticsearch_instance_name }}"
+elasticsearch_config_dir: "{{ elasticsearch_install_dir }}/config"
 elasticsearch_action_auto_create_index: true
 elasticsearch_max_open_filelasticsearch: 65536
 elasticsearch_max_threads: "{{ 2048 if ( elasticsearch_version | version_compare('6.0.0', '<')) else 8192 }}"
